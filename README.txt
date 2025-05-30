@@ -1,1 +1,1 @@
-false
+https://rubis.app/my-scraps/
