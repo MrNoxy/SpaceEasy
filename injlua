@@ -1,0 +1,49 @@
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "SpaceEasyNotification"
+screenGui.ResetOnSpawn = false
+screenGui.IgnoreGuiInset = true -- prevents offset from topbar
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 250, 0, 50)
+frame.Position = UDim2.new(0.5, 0, 0, 20)
+frame.AnchorPoint = Vector2.new(0.5, 0)
+frame.BackgroundColor3 = Color3.fromRGB(24, 25, 29)
+frame.BackgroundTransparency = 0
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = frame
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.Text = "Space Easy ✔"
+textLabel.Font = Enum.Font.GothamBold
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+textLabel.TextStrokeTransparency = 0.7
+textLabel.TextSize = 22
+textLabel.Parent = frame
+
+task.wait(3)
+
+local fadeFrame = TweenService:Create(frame, TweenInfo.new(1), {
+    BackgroundTransparency = 1
+})
+local fadeText = TweenService:Create(textLabel, TweenInfo.new(1), {
+    TextTransparency = 1,
+    TextStrokeTransparency = 1
+})
+
+fadeFrame:Play()
+fadeText:Play()
+
+fadeFrame.Completed:Connect(function()
+    screenGui:Destroy()
+end)
